@@ -124,6 +124,8 @@ STARTUP_MESSAGE_SENT = False
 @bot.event
 async def on_ready():
     global STARTUP_MESSAGE_SENT
+    print(f"✅ Logged in as {bot.user}", flush=True)
+
     await bot.change_presence(
         status=discord.Status.online,
         activity=discord.Activity(
@@ -131,9 +133,8 @@ async def on_ready():
             name="Rocket League pro cam settings | /camset"
         )
     )
-    print(f"✅ Logged in as {bot.user} | /camset command ready")
-    await bot.tree.sync()
-    print("✅ Slash commands synced")
+    print("✅ Presence set", flush=True)
+
     if not STARTUP_MESSAGE_SENT:
         try:
             channel = await bot.fetch_channel(STARTUP_CHANNEL_ID)
@@ -149,10 +150,16 @@ async def on_ready():
                 "```/camset jstn\n/camset Yukeo\n/camset Garrett G```\n"
                 "> 💡 Don't worry about exact spelling — fuzzy search handles typos and partial names!"
             )
-            print(f"✅ Startup message sent to channel {STARTUP_CHANNEL_ID}")
+            print(f"✅ Startup message sent", flush=True)
             STARTUP_MESSAGE_SENT = True
         except Exception as e:
-            print(f"❌ Failed to send startup message: {e}")
+            print(f"❌ Failed to send startup message: {e}", flush=True)
+
+    try:
+        await bot.tree.sync()
+        print("✅ Slash commands synced", flush=True)
+    except Exception as e:
+        print(f"❌ Slash command sync failed: {e}", flush=True)
 
 
 bot.run(DISCORD_TOKEN)
