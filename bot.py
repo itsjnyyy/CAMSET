@@ -117,9 +117,13 @@ async def camset(interaction: discord.Interaction, player: str):
         )
 
 
+STARTUP_CHANNEL_ID = 1276988782872367217
+STARTUP_MESSAGE_SENT = False
+
 # --- On ready ---
 @bot.event
 async def on_ready():
+    global STARTUP_MESSAGE_SENT
     await bot.tree.sync()
     await bot.change_presence(
         status=discord.Status.online,
@@ -128,6 +132,22 @@ async def on_ready():
             name="Rocket League pro cam settings | /camset"
         )
     )
+    if not STARTUP_MESSAGE_SENT:
+        channel = bot.get_channel(STARTUP_CHANNEL_ID)
+        if channel:
+            await channel.send(
+                "👋 **Hey! I'm CAMSET** — your Rocket League pro camera settings lookup bot.\n\n"
+                "📷 **What I do:**\n"
+                "I pull real-time camera settings for any Rocket League pro player directly from Liquipedia, "
+                "so you can instantly copy the exact setup your favourite player uses.\n\n"
+                "**Settings I return:** FOV · Distance · Height · Angle · Stiffness · Swivel Speed · Transition Speed\n\n"
+                "**How to use me:**\n"
+                "```/camset <player name>```\n"
+                "**Examples:**\n"
+                "```/camset jstn\n/camset Yukeo\n/camset Garrett G```\n"
+                "> 💡 Don't worry about exact spelling — fuzzy search handles typos and partial names!"
+            )
+        STARTUP_MESSAGE_SENT = True
     print(f"✅ Logged in as {bot.user} | /camset command ready")
 
 
