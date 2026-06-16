@@ -121,6 +121,13 @@ async def camset(interaction: discord.Interaction, player: str):
 @bot.event
 async def on_ready():
     await bot.tree.sync()
+    await bot.change_presence(
+        status=discord.Status.online,
+        activity=discord.Activity(
+            type=discord.ActivityType.watching,
+            name="Rocket League pro cam settings | /camset"
+        )
+    )
     print(f"✅ Logged in as {bot.user} | /camset command ready")
 
 
