@@ -1,5 +1,7 @@
 # CAMSET Bot 🎮
 
+> ✅ **Status: Live and working**
+
 A Discord bot that looks up **Rocket League pro player camera settings** in real time from [Liquipedia](https://liquipedia.net/rocketleague/List_of_player_camera_settings).
 
 ## Usage
