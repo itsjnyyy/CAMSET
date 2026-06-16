@@ -133,7 +133,7 @@ async def on_ready():
         )
     )
     if not STARTUP_MESSAGE_SENT:
-        channel = bot.get_channel(STARTUP_CHANNEL_ID)
+        channel = await bot.fetch_channel(STARTUP_CHANNEL_ID)
         if channel:
             await channel.send(
                 "👋 **Hey! I'm CAMSET** — your Rocket League pro camera settings lookup bot.\n\n"
